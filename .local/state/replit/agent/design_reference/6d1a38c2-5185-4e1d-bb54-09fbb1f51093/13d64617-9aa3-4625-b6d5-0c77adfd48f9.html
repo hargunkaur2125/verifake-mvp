@@ -1,0 +1,458 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeriFake - Social Media Account Detection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1565C0',
+                        secondary: '#0277BD',
+                        success: '#2E7D32',
+                        warning: '#F57C00',
+                        danger: '#C62828',
+                        neutral: '#37474F',
+                        'neutral-light': '#78909C',
+                        'neutral-bg': '#ECEFF1'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-neutral-bg font-sans">
+    <!-- @COMPONENT: Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-shield-alt text-primary text-2xl"></i>
+                        <span class="text-xl font-bold text-neutral">VeriFake</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <button data-tab="analysis" class="nav-btn text-primary border-b-2 border-primary font-medium">Analysis</button>
+                    <button data-tab="dashboard" class="nav-btn text-neutral-light hover:text-neutral">Dashboard</button>
+                    <button data-tab="admin" class="nav-btn text-neutral-light hover:text-neutral">Admin</button>
+                    <div class="flex items-center space-x-2 ml-6">
+                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                            <i class="fas fa-user text-white text-sm"></i>
+                        </div>
+                        <span class="text-sm text-neutral">John Doe</span>
+                    </div>
+                </div>
+                <button class="md:hidden">
+                    <i class="fas fa-bars text-neutral"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <!-- @END_COMPONENT: Navigation -->
+
+    <!-- @COMPONENT: MainContent -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- @COMPONENT: AnalysisSection -->
+        <div id="analysis-section" class="tab-content">
+            <!-- Hero Section -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-neutral mb-4">Social Media Account Verification</h1>
+                <p class="text-lg text-neutral-light max-w-2xl mx-auto">
+                    Detect fake social media accounts using advanced pattern analysis and machine learning algorithms.
+                </p>
+            </div>
+
+            <!-- Analysis Form -->
+            <div class="max-w-2xl mx-auto mb-12">
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <h2 class="text-2xl font-semibold text-neutral mb-6">Analyze Account</h2>
+                    <form class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-neutral mb-2">Social Media Platform</label>
+                            <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <option>Instagram</option>
+                                <option>Twitter</option>
+                                <option>Facebook</option>
+                                <option>LinkedIn</option>
+                                <option>TikTok</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-neutral mb-2">Profile URL or Username</label>
+                            <input type="text" placeholder="@username or https://instagram.com/username" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        <button type="button" onclick="runAnalysis()" 
+                                class="w-full bg-primary text-white py-3 px-6 rounded-lg font-medium hover:bg-secondary transition-colors">
+                            <i class="fas fa-search mr-2"></i>
+                            Analyze Account
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Analysis Results -->
+            <div id="analysis-results" class="hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                    <!-- Main Result Card -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-white rounded-xl shadow-lg p-8">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="text-2xl font-semibold text-neutral">Analysis Results</h3>
+                                <span class="px-3 py-1 bg-success text-white rounded-full text-sm font-medium">
+                                    <i class="fas fa-check-circle mr-1"></i>
+                                    Authentic
+                                </span>
+                            </div>
+                            
+                            <!-- Confidence Score -->
+                            <div class="mb-8">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm font-medium text-neutral">Authenticity Score</span>
+                                    <span class="text-sm font-bold text-success">87%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="bg-success h-3 rounded-full" style="width: 87%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Analysis Factors -->
+                            <div class="space-y-4">
+                                <h4 class="font-semibold text-neutral mb-4">Analysis Factors</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span class="text-sm">Profile completeness: 94%</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span class="text-sm">Follower pattern: Normal</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 p-3 bg-yellow-50 rounded-lg">
+                                        <i class="fas fa-exclamation-triangle text-warning"></i>
+                                        <span class="text-sm">Account age: 6 months</span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                        <span class="text-sm">Content quality: High</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Preview -->
+                    <div class="lg:col-span-1">
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h4 class="font-semibold text-neutral mb-4">Account Preview</h4>
+                            <div class="text-center">
+                                <!-- Profile picture placeholder -->
+                                <div class="w-20 h-20 bg-gray-300 rounded-full mx-auto mb-4 flex items-center justify-center">
+                                    <i class="fas fa-user text-gray-500 text-2xl"></i>
+                                </div>
+                                <h5 class="font-semibold text-neutral">@sarah_photographer</h5>
+                                <p class="text-sm text-neutral-light mb-4">Professional photographer based in NYC</p>
+                                <div class="grid grid-cols-3 gap-4 text-center">
+                                    <div>
+                                        <div class="font-semibold text-neutral">2.4K</div>
+                                        <div class="text-xs text-neutral-light">Posts</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold text-neutral">15.8K</div>
+                                        <div class="text-xs text-neutral-light">Followers</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold text-neutral">892</div>
+                                        <div class="text-xs text-neutral-light">Following</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: AnalysisSection -->
+
+        <!-- @COMPONENT: DashboardSection -->
+        <div id="dashboard-section" class="tab-content hidden">
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-neutral mb-2">User Dashboard</h1>
+                <p class="text-neutral-light">Track your analysis history and account insights</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center">
+                        <div class="p-3 bg-primary bg-opacity-10 rounded-lg">
+                            <i class="fas fa-search text-primary text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm text-neutral-light">Total Analyses</p>
+                            <p class="text-2xl font-bold text-neutral">247</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center">
+                        <div class="p-3 bg-danger bg-opacity-10 rounded-lg">
+                            <i class="fas fa-exclamation-triangle text-danger text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm text-neutral-light">Fake Detected</p>
+                            <p class="text-2xl font-bold text-neutral">31</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center">
+                        <div class="p-3 bg-success bg-opacity-10 rounded-lg">
+                            <i class="fas fa-shield-check text-success text-xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm text-neutral-light">Authentic Verified</p>
+                            <p class="text-2xl font-bold text-neutral">216</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Analyses -->
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <h3 class="text-xl font-semibold text-neutral mb-6">Recent Analyses</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b border-gray-200">
+                                <th class="text-left py-3 px-4 font-medium text-neutral-light">Account</th>
+                                <th class="text-left py-3 px-4 font-medium text-neutral-light">Platform</th>
+                                <th class="text-left py-3 px-4 font-medium text-neutral-light">Result</th>
+                                <th class="text-left py-3 px-4 font-medium text-neutral-light">Confidence</th>
+                                <th class="text-left py-3 px-4 font-medium text-neutral-light">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-100">
+                                <td class="py-4 px-4">@sarah_photographer</td>
+                                <td class="py-4 px-4">Instagram</td>
+                                <td class="py-4 px-4">
+                                    <span class="px-2 py-1 bg-success text-white rounded text-sm">Authentic</span>
+                                </td>
+                                <td class="py-4 px-4">87%</td>
+                                <td class="py-4 px-4">2 hours ago</td>
+                            </tr>
+                            <tr class="border-b border-gray-100">
+                                <td class="py-4 px-4">@quick_gains_2024</td>
+                                <td class="py-4 px-4">Twitter</td>
+                                <td class="py-4 px-4">
+                                    <span class="px-2 py-1 bg-danger text-white rounded text-sm">Fake</span>
+                                </td>
+                                <td class="py-4 px-4">94%</td>
+                                <td class="py-4 px-4">1 day ago</td>
+                            </tr>
+                            <tr class="border-b border-gray-100">
+                                <td class="py-4 px-4">@tech_startup_ceo</td>
+                                <td class="py-4 px-4">LinkedIn</td>
+                                <td class="py-4 px-4">
+                                    <span class="px-2 py-1 bg-warning text-white rounded text-sm">Suspicious</span>
+                                </td>
+                                <td class="py-4 px-4">72%</td>
+                                <td class="py-4 px-4">3 days ago</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: DashboardSection -->
+
+        <!-- @COMPONENT: AdminSection -->
+        <div id="admin-section" class="tab-content hidden">
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-neutral mb-2">Admin Dashboard</h1>
+                <p class="text-neutral-light">System monitoring and user management</p>
+            </div>
+
+            <!-- Admin Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-neutral-light">Total Users</p>
+                            <p class="text-2xl font-bold text-neutral">1,247</p>
+                        </div>
+                        <i class="fas fa-users text-primary text-2xl"></i>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-neutral-light">Daily Analyses</p>
+                            <p class="text-2xl font-bold text-neutral">892</p>
+                        </div>
+                        <i class="fas fa-chart-line text-success text-2xl"></i>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-neutral-light">Detection Rate</p>
+                            <p class="text-2xl font-bold text-neutral">89.2%</p>
+                        </div>
+                        <i class="fas fa-shield-alt text-warning text-2xl"></i>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-neutral-light">System Uptime</p>
+                            <p class="text-2xl font-bold text-neutral">99.8%</p>
+                        </div>
+                        <i class="fas fa-server text-success text-2xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts and Tables -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- System Performance -->
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <h3 class="text-xl font-semibold text-neutral mb-6">System Performance</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>CPU Usage</span>
+                                <span>45%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: 45%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Memory Usage</span>
+                                <span>67%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-warning h-2 rounded-full" style="width: 67%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>API Response Time</span>
+                                <span>234ms</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-success h-2 rounded-full" style="width: 25%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Reports -->
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <h3 class="text-xl font-semibold text-neutral mb-6">Recent Reports</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg">
+                            <div class="w-10 h-10 bg-danger bg-opacity-10 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-exclamation-triangle text-danger"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-neutral">False Positive Report</p>
+                                <p class="text-sm text-neutral-light">Account @tech_blogger flagged incorrectly</p>
+                            </div>
+                            <span class="text-xs text-neutral-light">2h ago</span>
+                        </div>
+                        <div class="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg">
+                            <div class="w-10 h-10 bg-success bg-opacity-10 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-check-circle text-success"></i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="font-medium text-neutral">Bot Network Detected</p>
+                                <p class="text-sm text-neutral-light">15 connected fake accounts identified</p>
+                            </div>
+                            <span class="text-xs text-neutral-light">5h ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: AdminSection -->
+
+    </main>
+    <!-- @END_COMPONENT: MainContent -->
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-8 text-center">
+            <div class="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p class="text-neutral font-medium">Analyzing account...</p>
+            <p class="text-sm text-neutral-light mt-2">This may take a few moments</p>
+        </div>
+    </div>
+
+    <script>
+        // Tab Navigation
+        (function() {
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.getAttribute('data-tab');
+                    
+                    // Remove active states
+                    navButtons.forEach(btn => {
+                        btn.classList.remove('text-primary', 'border-b-2', 'border-primary');
+                        btn.classList.add('text-neutral-light');
+                    });
+                    
+                    // Hide all tab contents
+                    tabContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    
+                    // Activate clicked tab
+                    button.classList.remove('text-neutral-light');
+                    button.classList.add('text-primary', 'border-b-2', 'border-primary');
+                    
+                    // Show target content
+                    document.getElementById(`${targetTab}-section`).classList.remove('hidden');
+                });
+            });
+        })();
+
+        // Analysis Function
+        function runAnalysis() {
+            const loadingOverlay = document.getElementById('loading-overlay');
+            const resultsSection = document.getElementById('analysis-results');
+            
+            // Show loading
+            loadingOverlay.classList.remove('hidden');
+            
+            // TODO: Implement real analysis API call
+            setTimeout(() => {
+                loadingOverlay.classList.add('hidden');
+                resultsSection.classList.remove('hidden');
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }, 3000);
+        }
+
+        // Initialize tooltips and other interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // TODO: Initialize any additional interactive components
+            console.log('VeriFake MVP loaded successfully');
+        });
+    </script>
+</body>
+</html>

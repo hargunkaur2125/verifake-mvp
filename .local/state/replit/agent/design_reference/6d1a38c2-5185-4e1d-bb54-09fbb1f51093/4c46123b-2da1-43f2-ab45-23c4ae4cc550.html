@@ -1,0 +1,860 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeriFake - Social Media Account Detection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    'electric-blue': '#00D4FF',
+                    'electric-blue-dark': '#0099CC',
+                    'neon-green': '#00FF88',
+                    'neon-green-dark': '#00CC66',
+                    'deep-navy': '#0A0E1A',
+                    'dark-surface': '#1E293B',
+                    'dark-lighter': '#334155'
+                },
+                animation: {
+                    'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    'bounce-subtle': 'bounce 2s infinite',
+                    'gradient': 'gradient 6s ease infinite'
+                },
+                backgroundSize: {
+                    '400%': '400%'
+                }
+            }
+        }
+    };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .glassmorphism-dark {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(-45deg, #00D4FF, #8B5CF6, #00FF88, #7C3AED);
+            background-size: 400% 400%;
+            animation: gradient 6s ease infinite;
+        }
+        
+        .hover-glow:hover {
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #00D4FF 0%, #00FF88 100%);
+            height: 8px;
+            border-radius: 4px;
+            animation: pulse-slow 2s infinite;
+        }
+        
+        .chart-container {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-deep-navy text-white min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glassmorphism-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-gradient-to-r from-electric-blue to-neon-green rounded-lg flex items-center justify-center">
+                        <i class="fas fa-shield-alt text-white"></i>
+                    </div>
+                    <span class="text-xl font-bold bg-gradient-to-r from-electric-blue to-neon-green bg-clip-text text-transparent">
+                        VeriFake
+                    </span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="hover:text-electric-blue transition-colors cursor-pointer">Home</a>
+                    <a href="#features" class="hover:text-electric-blue transition-colors cursor-pointer">Features</a>
+                    <a href="#dashboard" class="hover:text-electric-blue transition-colors cursor-pointer">Dashboard</a>
+                    <a href="#admin" class="hover:text-electric-blue transition-colors cursor-pointer">Admin</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="px-4 py-2 text-sm border border-electric-blue text-electric-blue rounded-lg hover:bg-electric-blue hover:text-white transition-all">
+                        Sign In
+                    </button>
+                    <button class="px-4 py-2 text-sm bg-gradient-to-r from-electric-blue to-neon-green rounded-lg hover-glow">
+                        Get Started
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <!-- @COMPONENT: HeroSection -->
+    <section id="home" class="pt-16 min-h-screen flex items-center relative overflow-hidden">
+        <div class="absolute inset-0 gradient-bg opacity-10"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="space-y-4">
+                        <h1 class="text-5xl lg:text-7xl font-bold leading-tight">
+                            Detect
+                            <span class="bg-gradient-to-r from-electric-blue to-neon-green bg-clip-text text-transparent">
+                                Fake
+                            </span>
+                            <br>Social Accounts
+                        </h1>
+                        <p class="text-xl text-gray-300 leading-relaxed">
+                            Advanced AI-powered detection system that identifies fake social media accounts with 99.7% accuracy using behavioral analysis and machine learning.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="px-8 py-4 bg-gradient-to-r from-electric-blue to-neon-green rounded-xl text-lg font-semibold hover-glow">
+                            <i class="fas fa-rocket mr-2"></i>
+                            Start Detection
+                        </button>
+                        <button class="px-8 py-4 border border-gray-600 rounded-xl text-lg font-semibold hover:border-electric-blue transition-colors">
+                            <i class="fas fa-play mr-2"></i>
+                            Watch Demo
+                        </button>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-8 pt-8">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-electric-blue">99.7%</div>
+                            <div class="text-sm text-gray-400">Accuracy Rate</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-neon-green">50M+</div>
+                            <div class="text-sm text-gray-400">Accounts Analyzed</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-400">24/7</div>
+                            <div class="text-sm text-gray-400">Real-time Monitoring</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="glassmorphism rounded-3xl p-8 space-y-6">
+                        <!-- Cybersecurity dashboard mockup illustration -->
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" alt="Cybersecurity dashboard interface" class="rounded-xl w-full h-auto opacity-80" />
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-300">Detection Progress</span>
+                                <span class="text-sm text-electric-blue">94%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="progress-bar w-[94%] rounded-full"></div>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="glassmorphism-dark rounded-lg p-4">
+                                    <div class="text-lg font-semibold text-red-400">142</div>
+                                    <div class="text-xs text-gray-400">Fake Accounts</div>
+                                </div>
+                                <div class="glassmorphism-dark rounded-lg p-4">
+                                    <div class="text-lg font-semibold text-green-400">1,847</div>
+                                    <div class="text-xs text-gray-400">Verified Accounts</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-r from-electric-blue to-neon-green rounded-full opacity-20 animate-pulse-slow"></div>
+                    <div class="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full opacity-20 animate-bounce-subtle"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: HeroSection -->
+
+    <!-- Features Section -->
+    <!-- @COMPONENT: FeaturesSection -->
+    <section id="features" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4 mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold">
+                    Core <span class="text-electric-blue">Detection</span> Features
+                </h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Comprehensive AI-powered analysis tools designed to identify fake accounts with unprecedented accuracy
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glassmorphism rounded-2xl p-8 hover-glow">
+                    <div class="w-16 h-16 bg-gradient-to-r from-electric-blue to-neon-green rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-brain text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">AI Behavioral Analysis</h3>
+                    <p class="text-gray-300 mb-6">
+                        Advanced machine learning algorithms analyze posting patterns, interaction behaviors, and account metadata to identify suspicious activities.
+                    </p>
+                    <div class="flex items-center text-electric-blue text-sm font-medium">
+                        <span>Learn More</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <div class="glassmorphism rounded-2xl p-8 hover-glow">
+                    <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-network-wired text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Network Analysis</h3>
+                    <p class="text-gray-300 mb-6">
+                        Examine connection patterns, follower networks, and engagement clusters to detect coordinated inauthentic behavior.
+                    </p>
+                    <div class="flex items-center text-electric-blue text-sm font-medium">
+                        <span>Learn More</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <div class="glassmorphism rounded-2xl p-8 hover-glow">
+                    <div class="w-16 h-16 bg-gradient-to-r from-neon-green to-electric-blue rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-clock text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Real-time Monitoring</h3>
+                    <p class="text-gray-300 mb-6">
+                        Continuous monitoring and instant alerts when suspicious accounts are detected in your network or mentions.
+                    </p>
+                    <div class="flex items-center text-electric-blue text-sm font-medium">
+                        <span>Learn More</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: FeaturesSection -->
+
+    <!-- Account Analysis Interface -->
+    <!-- @COMPONENT: AnalysisInterface -->
+    <section id="analysis" class="py-24 relative">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4 mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold">
+                    Account <span class="text-neon-green">Analysis</span> Tool
+                </h2>
+                <p class="text-xl text-gray-300">
+                    Simply paste a social media URL to get instant fake account detection results
+                </p>
+            </div>
+            
+            <div class="glassmorphism rounded-3xl p-8 lg:p-12">
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <!-- Input Section -->
+                    <div class="space-y-8">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-3">
+                                Social Media URL
+                            </label>
+                            <div class="relative">
+                                <input 
+                                    type="text" 
+                                    placeholder="https://twitter.com/username or instagram.com/profile"
+                                    class="w-full px-4 py-4 bg-dark-surface border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:border-electric-blue focus:ring-2 focus:ring-electric-blue/20 transition-all"
+                                    data-mock="true"
+                                />
+                                <button class="absolute right-2 top-1/2 transform -translate-y-1/2 px-6 py-2 bg-gradient-to-r from-electric-blue to-neon-green rounded-lg hover-glow">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="glassmorphism-dark rounded-xl p-6">
+                            <h4 class="font-semibold mb-4 text-electric-blue">
+                                <i class="fas fa-upload mr-2"></i>
+                                Drag & Drop Analysis
+                            </h4>
+                            <div class="border-2 border-dashed border-gray-600 rounded-lg p-8 text-center hover:border-electric-blue transition-colors">
+                                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                                <p class="text-gray-300 mb-2">Drop URL list or CSV file here</p>
+                                <p class="text-sm text-gray-500">Supports batch analysis of up to 1000 accounts</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <button class="flex-1 px-6 py-3 bg-gradient-to-r from-electric-blue to-neon-green rounded-xl font-semibold hover-glow">
+                                <i class="fas fa-play mr-2"></i>
+                                Analyze Account
+                            </button>
+                            <button class="px-6 py-3 border border-gray-600 rounded-xl hover:border-electric-blue transition-colors">
+                                <i class="fas fa-history"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Preview Results -->
+                    <div class="space-y-6">
+                        <div class="glassmorphism-dark rounded-xl p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="font-semibold">Detection Results</h4>
+                                <span class="px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-sm">
+                                    High Risk
+                                </span>
+                            </div>
+                            
+                            <!-- AI detection interface preview -->
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=400" alt="AI detection interface showing risk analysis" class="rounded-lg w-full h-48 object-cover mb-4" />
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-300">Fake Probability</span>
+                                    <span class="text-sm font-semibold text-red-400">87%</span>
+                                </div>
+                                <div class="w-full bg-gray-700 rounded-full h-3">
+                                    <div class="bg-gradient-to-r from-red-500 to-orange-500 h-3 rounded-full w-[87%]"></div>
+                                </div>
+                                
+                                <div class="grid grid-cols-2 gap-4 pt-4">
+                                    <div class="text-center">
+                                        <div class="text-lg font-semibold text-red-400">142</div>
+                                        <div class="text-xs text-gray-400">Risk Factors</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-lg font-semibold text-yellow-400">23</div>
+                                        <div class="text-xs text-gray-400">Anomalies Found</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="glassmorphism-dark rounded-xl p-6">
+                            <h4 class="font-semibold mb-4 text-electric-blue">Key Indicators</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-300">Profile Completeness</span>
+                                    <span class="text-sm text-red-400">Low</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-300">Posting Pattern</span>
+                                    <span class="text-sm text-red-400">Irregular</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-300">Network Quality</span>
+                                    <span class="text-sm text-yellow-400">Suspicious</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm text-gray-300">Content Authenticity</span>
+                                    <span class="text-sm text-red-400">Poor</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: AnalysisInterface -->
+
+    <!-- Dashboard Section -->
+    <!-- @COMPONENT: UserDashboard -->
+    <section id="dashboard" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4 mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold">
+                    Analytics <span class="text-purple-400">Dashboard</span>
+                </h2>
+                <p class="text-xl text-gray-300">
+                    Comprehensive insights and real-time monitoring of your detection activities
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Stats Cards -->
+                <div class="lg:col-span-3 grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="glassmorphism rounded-2xl p-6 hover-glow">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-r from-electric-blue to-neon-green rounded-xl flex items-center justify-center">
+                                <i class="fas fa-users text-white"></i>
+                            </div>
+                            <span class="text-sm text-green-400">+12%</span>
+                        </div>
+                        <div class="text-2xl font-bold">2,847</div>
+                        <div class="text-sm text-gray-400">Accounts Analyzed</div>
+                    </div>
+                    
+                    <div class="glassmorphism rounded-2xl p-6 hover-glow">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-exclamation-triangle text-white"></i>
+                            </div>
+                            <span class="text-sm text-red-400">+5%</span>
+                        </div>
+                        <div class="text-2xl font-bold">342</div>
+                        <div class="text-sm text-gray-400">Fake Detected</div>
+                    </div>
+                    
+                    <div class="glassmorphism rounded-2xl p-6 hover-glow">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-shield-check text-white"></i>
+                            </div>
+                            <span class="text-sm text-green-400">+8%</span>
+                        </div>
+                        <div class="text-2xl font-bold">99.2%</div>
+                        <div class="text-sm text-gray-400">Accuracy Rate</div>
+                    </div>
+                    
+                    <div class="glassmorphism rounded-2xl p-6 hover-glow">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center">
+                                <i class="fas fa-clock text-white"></i>
+                            </div>
+                            <span class="text-sm text-blue-400">-15%</span>
+                        </div>
+                        <div class="text-2xl font-bold">1.2s</div>
+                        <div class="text-sm text-gray-400">Avg Analysis Time</div>
+                    </div>
+                </div>
+                
+                <!-- Charts Section -->
+                <div class="lg:col-span-2 space-y-8">
+                    <div class="chart-container rounded-2xl p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-semibold">Detection Trends</h3>
+                            <select class="bg-dark-surface border border-gray-600 rounded-lg px-3 py-1 text-sm">
+                                <option>Last 7 days</option>
+                                <option>Last 30 days</option>
+                                <option>Last 3 months</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Social media analytics visualization -->
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=400" alt="Social media analytics charts and graphs" class="rounded-xl w-full h-64 object-cover" />
+                    </div>
+                    
+                    <div class="chart-container rounded-2xl p-6">
+                        <h3 class="text-lg font-semibold mb-6">Platform Distribution</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                                    <span class="text-sm">Twitter</span>
+                                </div>
+                                <span class="text-sm font-semibold">42%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full w-[42%]"></div>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-3 h-3 bg-pink-500 rounded-full"></div>
+                                    <span class="text-sm">Instagram</span>
+                                </div>
+                                <span class="text-sm font-semibold">35%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="bg-pink-500 h-2 rounded-full w-[35%]"></div>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-3 h-3 bg-blue-600 rounded-full"></div>
+                                    <span class="text-sm">Facebook</span>
+                                </div>
+                                <span class="text-sm font-semibold">23%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="bg-blue-600 h-2 rounded-full w-[23%]"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="space-y-8">
+                    <div class="chart-container rounded-2xl p-6">
+                        <h3 class="text-lg font-semibold mb-6">Recent Detections</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-3 bg-dark-surface rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-exclamation text-white text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium">@suspicious_user</div>
+                                        <div class="text-xs text-gray-400">High risk detected</div>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-gray-400">2m ago</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-3 bg-dark-surface rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-check text-white text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium">@verified_account</div>
+                                        <div class="text-xs text-gray-400">Authentic profile</div>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-gray-400">5m ago</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-3 bg-dark-surface rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-yellow-500 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-question text-white text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium">@unknown_profile</div>
+                                        <div class="text-xs text-gray-400">Needs review</div>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-gray-400">12m ago</span>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full mt-4 py-2 text-sm text-electric-blue border border-electric-blue rounded-lg hover:bg-electric-blue hover:text-white transition-all">
+                            View All Activity
+                        </button>
+                    </div>
+                    
+                    <div class="chart-container rounded-2xl p-6">
+                        <h3 class="text-lg font-semibold mb-6">Risk Distribution</h3>
+                        
+                        <!-- Modern tech UI elements for risk visualization -->
+                        <img src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&h=300" alt="Modern tech UI elements displaying risk metrics" class="rounded-xl w-full h-40 object-cover mb-4" />
+                        
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-red-400">High Risk</span>
+                                <span class="text-sm font-semibold">15%</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-yellow-400">Medium Risk</span>
+                                <span class="text-sm font-semibold">23%</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-green-400">Low Risk</span>
+                                <span class="text-sm font-semibold">62%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: UserDashboard -->
+
+    <!-- Admin Panel Section -->
+    <!-- @COMPONENT: AdminPanel -->
+    <section id="admin" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4 mb-16">
+                <h2 class="text-4xl lg:text-5xl font-bold">
+                    Admin <span class="text-electric-blue">Control Panel</span>
+                </h2>
+                <p class="text-xl text-gray-300">
+                    Advanced administrative tools for system monitoring and management
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-4 gap-8">
+                <!-- Sidebar Navigation -->
+                <div class="lg:col-span-1">
+                    <div class="glassmorphism rounded-2xl p-6 sticky top-24">
+                        <nav class="space-y-2">
+                            <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-electric-blue/20 text-electric-blue">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>Overview</span>
+                            </a>
+                            <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-users"></i>
+                                <span>User Management</span>
+                            </a>
+                            <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-cog"></i>
+                                <span>System Settings</span>
+                            </a>
+                            <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Analytics</span>
+                            </a>
+                            <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Security</span>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+                
+                <!-- Main Content -->
+                <div class="lg:col-span-3 space-y-8">
+                    <!-- System Status -->
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="glassmorphism rounded-2xl p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold">System Health</h3>
+                                <span class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></span>
+                            </div>
+                            <div class="text-3xl font-bold text-green-400 mb-2">98.9%</div>
+                            <div class="text-sm text-gray-400">Uptime</div>
+                        </div>
+                        
+                        <div class="glassmorphism rounded-2xl p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold">API Performance</h3>
+                                <span class="w-3 h-3 bg-electric-blue rounded-full animate-pulse"></span>
+                            </div>
+                            <div class="text-3xl font-bold text-electric-blue mb-2">847ms</div>
+                            <div class="text-sm text-gray-400">Avg Response</div>
+                        </div>
+                        
+                        <div class="glassmorphism rounded-2xl p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-semibold">Active Users</h3>
+                                <span class="w-3 h-3 bg-neon-green rounded-full animate-pulse"></span>
+                            </div>
+                            <div class="text-3xl font-bold text-neon-green mb-2">1,247</div>
+                            <div class="text-sm text-gray-400">Online Now</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Real-time Analytics -->
+                    <div class="glassmorphism rounded-2xl p-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-xl font-semibold">Real-time Detection Analytics</h3>
+                            <div class="flex space-x-2">
+                                <button class="px-4 py-2 bg-electric-blue rounded-lg text-sm">Live</button>
+                                <button class="px-4 py-2 border border-gray-600 rounded-lg text-sm hover:border-electric-blue transition-colors">Export</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Cybersecurity dashboard with analytics -->
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&h=600" alt="Cybersecurity dashboard with real-time analytics and monitoring charts" class="rounded-xl w-full h-80 object-cover" />
+                    </div>
+                    
+                    <!-- User Management Table -->
+                    <div class="glassmorphism rounded-2xl p-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-xl font-semibold">User Management</h3>
+                            <button class="px-6 py-2 bg-gradient-to-r from-electric-blue to-neon-green rounded-lg hover-glow">
+                                <i class="fas fa-plus mr-2"></i>
+                                Add User
+                            </button>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="border-b border-gray-700">
+                                        <th class="text-left py-3 px-4 font-medium text-gray-300">User</th>
+                                        <th class="text-left py-3 px-4 font-medium text-gray-300">Role</th>
+                                        <th class="text-left py-3 px-4 font-medium text-gray-300">Status</th>
+                                        <th class="text-left py-3 px-4 font-medium text-gray-300">Last Active</th>
+                                        <th class="text-left py-3 px-4 font-medium text-gray-300">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-700">
+                                    <tr data-mock="true">
+                                        <td class="py-4 px-4">
+                                            <div class="flex items-center space-x-3">
+                                                <div class="w-10 h-10 bg-gradient-to-r from-electric-blue to-neon-green rounded-full flex items-center justify-center">
+                                                    <span class="text-sm font-medium">JD</span>
+                                                </div>
+                                                <div>
+                                                    <div class="font-medium">John Doe</div>
+                                                    <div class="text-sm text-gray-400">john@company.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-4">
+                                            <span class="px-3 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm">Admin</span>
+                                        </td>
+                                        <td class="py-4 px-4">
+                                            <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">Active</span>
+                                        </td>
+                                        <td class="py-4 px-4 text-gray-300">2 hours ago</td>
+                                        <td class="py-4 px-4">
+                                            <div class="flex space-x-2">
+                                                <button class="p-2 hover:bg-gray-700 rounded-lg transition-colors">
+                                                    <i class="fas fa-edit text-electric-blue"></i>
+                                                </button>
+                                                <button class="p-2 hover:bg-gray-700 rounded-lg transition-colors">
+                                                    <i class="fas fa-trash text-red-400"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr data-mock="true">
+                                        <td class="py-4 px-4">
+                                            <div class="flex items-center space-x-3">
+                                                <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                                                    <span class="text-sm font-medium">AS</span>
+                                                </div>
+                                                <div>
+                                                    <div class="font-medium">Alice Smith</div>
+                                                    <div class="text-sm text-gray-400">alice@company.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-4 px-4">
+                                            <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm">Analyst</span>
+                                        </td>
+                                        <td class="py-4 px-4">
+                                            <span class="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm">Active</span>
+                                        </td>
+                                        <td class="py-4 px-4 text-gray-300">1 day ago</td>
+                                        <td class="py-4 px-4">
+                                            <div class="flex space-x-2">
+                                                <button class="p-2 hover:bg-gray-700 rounded-lg transition-colors">
+                                                    <i class="fas fa-edit text-electric-blue"></i>
+                                                </button>
+                                                <button class="p-2 hover:bg-gray-700 rounded-lg transition-colors">
+                                                    <i class="fas fa-trash text-red-400"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- @END_COMPONENT: AdminPanel -->
+
+    <!-- Footer -->
+    <footer class="bg-dark-surface py-12 mt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-gradient-to-r from-electric-blue to-neon-green rounded-lg flex items-center justify-center">
+                            <i class="fas fa-shield-alt text-white"></i>
+                        </div>
+                        <span class="text-xl font-bold bg-gradient-to-r from-electric-blue to-neon-green bg-clip-text text-transparent">
+                            VeriFake
+                        </span>
+                    </div>
+                    <p class="text-gray-400">
+                        Advanced AI-powered social media account detection for a safer digital world.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Features</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Pricing</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">API</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Documentation</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">About</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Blog</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Privacy</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Terms</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Security</a></li>
+                        <li><a href="#" class="hover:text-electric-blue transition-colors">Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400">© 2024 VeriFake. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-electric-blue transition-colors">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-electric-blue transition-colors">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-electric-blue transition-colors">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // TODO: Implement business logic, API calls, and state management
+        (function() {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Simple navbar background opacity on scroll
+            window.addEventListener('scroll', function() {
+                const nav = document.querySelector('nav');
+                if (window.scrollY > 50) {
+                    nav.style.background = 'rgba(0, 0, 0, 0.9)';
+                } else {
+                    nav.style.background = 'rgba(0, 0, 0, 0.2)';
+                }
+            });
+
+            // Add loading animation simulation for buttons
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    if (!this.disabled) {
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1)';
+                        }, 150);
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
